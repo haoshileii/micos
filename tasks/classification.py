@@ -10,7 +10,7 @@ import matplotlib.pyplot as ply
 def eval_classification(model, train_data, train_labels, test_data, test_labels, eval_protocol='linear'):
     assert train_labels.ndim == 1 or train_labels.ndim == 2
     #画表示前的测试实例tsne图
-    #draw.draw_tsne_2D(test_data, test_labels, 1)
+    draw.draw_tsne_2D(test_data, test_labels, 1)
     train_repr = model.encode(train_data, train_labels, encoding_window='full_series' if train_labels.ndim == 1 else None)
     test_repr = model.encode(test_data, test_labels, encoding_window='full_series' if train_labels.ndim == 1 else None)
     #画原始数据的图形

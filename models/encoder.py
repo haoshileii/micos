@@ -135,10 +135,10 @@ class TSEncoder(nn.Module):
         # x2 = x2 * gate[:, 1:2]
         # x2 = x2.reshape(x2.shape[0], -1, 64)
 
-        x_a = torch.cat([x1, x2], dim=-1).to(x.device)
+        #x_a = torch.cat([x1, x2], dim=-1).to(x.device)
         #x_a = self.input_x_a(x_a)
         #x = x.transpose(1, 2)  # B x T x Co
-        
+        x_a = x1.to(x.device)
         return x_a
 
 

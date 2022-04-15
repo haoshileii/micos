@@ -106,9 +106,9 @@ def draw_tsne_2D(test_x_rep, test_y, sne):
              'size': 20,
              }
     X_embedded = TSNE(n_components=2).fit_transform(X)
-    colours = ListedColormap(['#FB2A27', '#0057e7', '#FFA700', '#8134af', '#8bc24c', '#08D9D6'])
+    #colours = ListedColormap(['#FB2A27', '#0057e7', '#FFA700', '#8134af', '#8bc24c', '#08D9D6'])
     #colours = ListedColormap(['#FB2A27', '#0057e7', '#FFA700', '#8134af'])
-    #colours = ListedColormap(['#FB2A27', '#0057e7', '#FFA700', '#8134af', '#8bc24c', '#08D9D6', '#8AE1FC', '#f9bcdd','#ff8a5c'])
+    colours = ListedColormap(['#FB2A27', '#0057e7', '#FFA700', '#8134af', '#8bc24c', '#08D9D6', '#8AE1FC', '#f9bcdd','#ff8a5c'])
     plt.figure(facecolor='w', edgecolor='k', dpi=120)
     plt.grid(color='lightgray', linestyle = '--')#设置网格属性
     plt.grid(alpha=1)
@@ -127,7 +127,7 @@ def draw_tsne_2D(test_x_rep, test_y, sne):
     num2 = 0
     num3 = 3
     num4 = 0
-    plt.legend(handles=scat.legend_elements()[0], labels=['0', '1', '2', '3', '4', '5'], prop=font1, bbox_to_anchor=(num1, num2), loc=num3, borderaxespad=num4)
+    plt.legend(handles=scat.legend_elements()[0], labels=['0', '1', '2', '3', '4', '5', '6', '7', '8'], prop=font1, bbox_to_anchor=(num1, num2), loc=num3, borderaxespad=num4)
     #plt.show()
 
     # def scatter(x, colors):
@@ -186,9 +186,9 @@ def draw_tsne_3D(test_x_rep, test_y, sne):
     plot_embedding_2d(X_tsne[:, 0:2], y)
     #plot_embedding_3d(X_tsne, y, "t-SNE 3D (time %.2fs)" % (time() - t0))
     if sne==1:
-       plt.savefig('TSNE_Before.svg', dpi=120)
+       plt.savefig('JapaneseVowels_TSNE_Before.svg', dpi=120)
     else:
-       plt.savefig('TSNE_After.svg', dpi=120)
+       plt.savefig('JapaneseVowels_TSNE_After.svg', dpi=120)
 
 
     plt.show()

@@ -11,7 +11,7 @@ def checkId(target, a):
             b.append(index)
     return (b)
 
-def hierarchical_contrastive_loss(nb_trans, z, labels, alpha=0.34, beta=0.33, temporal_unit=0):
+def hierarchical_contrastive_loss(nb_trans, z, labels, alpha=0, beta=0.5, temporal_unit=0):
     print("="*50)
     # CBF[8,70,320]
     # 初始化
@@ -42,26 +42,6 @@ def hierarchical_contrastive_loss(nb_trans, z, labels, alpha=0.34, beta=0.33, te
         d += 1
     return loss / d
 #CBF:z1(8,70,320)   z2(8,70,320)  labels初始输入暂定为一维的tensor
-def instance_contrastive_loss_outer(z, labels, nb_trans):
-    labels = labels.contiguous().view(-1, 1)#将labels  reshape成为二维张量（24，1）
-    logits_mask = torch.eq(labels, labels.T).float()#代表i和j类别相等则为1，反之为0
-    logits_labels = torch.tril(logits_mask, diagonal=-1)[:, :-1]
-    logits_labels += torch.triu(logits_mask, diagonal=1)[:, 1:]
-    B, T = z.size(0)/nb_trans, z.size(1)
-    #此时没有损失
-    if B == 1:
-        return z.new_tensor(0.)
-    ############z =   nb_transB x T x C =
-    z = z.transpose(0, 1)  # T x nb_transB x C
-    sim = torch.matmul(z, z.transpose(1, 2))  # T x nb_transB x nb_transB
-    logits = torch.tril(sim, diagonal=-1)[:, :, :-1]    # T x nb_transB x (nb_transB-1)
-    logits += torch.triu(sim, diagonal=1)[:, :, 1:] # T x nb_transB x (nb_transB-1)
-    # softmax基础上再加一步log运算(默认以e为底)CBF:70,16,15
-    logits = -F.log_softmax(logits, dim=-1)
-    logits = logits*logits_labels #CBF:70,16,15
-    logits_ave = torch.sum(logits_labels, dim=1)#16
-    loss = torch.div(torch.sum(logits, dim=-1), logits_ave).mean() # torch.sum(logits, dim=-1)  CBF: 70,16
-    return loss
 
 def instance_contrastive_loss_inter(z, labels, nb_trans):
     B, T = z.size(0)/nb_trans, z.size(1)

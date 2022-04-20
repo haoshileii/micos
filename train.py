@@ -31,8 +31,8 @@ if __name__ == '__main__':
     workbook.save("resultstestunit.xls")
     for temperal in temperal_units:
         parser = argparse.ArgumentParser()
-        parser.add_argument('dataset', help='The dataset name')
-        parser.add_argument('run_name', default='UEA',
+        parser.add_argument('--dataset', default='BasicMotions', help='The dataset name')
+        parser.add_argument('--run_name', default='UEA',
                             help='The folder name used to save model, output and evaluation metrics. This can be set to any word')
         parser.add_argument('--gpu', type=int, default=0,
                             help='The gpu no. used for training and inference')
